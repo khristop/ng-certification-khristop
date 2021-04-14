@@ -6,6 +6,7 @@ import { FormsModule } from "@angular/forms";
 import { WeatherContainerComponent } from "./weather-container/weather-container.component";
 import { WeatherCardComponent } from "./weather-card/weather-card.component";
 import { LocationFormComponent } from "./location-form/location-form.component";
+import { WeatherService } from './weather.service';
 
 @NgModule({
   imports: [CommonModule, MainRoutesModule, FormsModule],
@@ -13,6 +14,7 @@ import { LocationFormComponent } from "./location-form/location-form.component";
     WeatherCardComponent,
     LocationFormComponent,
     WeatherContainerComponent
-  ]
+  ],
+  providers: [WeatherService]
 })
 export class MainModule {}
