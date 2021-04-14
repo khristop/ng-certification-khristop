@@ -1,13 +1,18 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { LocationClimateComponent } from "./location-climate/location-climate.component";
-import { LocationFormComponent } from "./location-form/location-form.component";
-import { MainComponent } from "./main/main.component";
 import { MainRoutesModule } from "./main-routing.module";
 import { FormsModule } from "@angular/forms";
 
+import { WeatherContainerComponent } from "./weather-container/weather-container.component";
+import { WeatherCardComponent } from "./weather-card/weather-card.component";
+import { LocationFormComponent } from "./location-form/location-form.component";
+
 @NgModule({
   imports: [CommonModule, MainRoutesModule, FormsModule],
-  declarations: [LocationClimateComponent, LocationFormComponent, MainComponent]
+  declarations: [
+    WeatherCardComponent,
+    LocationFormComponent,
+    WeatherContainerComponent
+  ]
 })
 export class MainModule {}
