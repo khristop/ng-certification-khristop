@@ -1,4 +1,3 @@
 <app-location-form (zipcodeSelected)="addLocation($event)"></app-location-form>
 
-
-<app-weather-card></app-weather-card>
+<app-weather-card *ngFor="let locationWeather of locationsWeather | async"></app-weather-card>

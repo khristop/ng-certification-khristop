@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { StorageService } from "../services/storage.service";
+import { WeatherAPIService } from "../services/weather-api.service";
 
 @Injectable()
 export class WeatherService {
@@ -13,7 +14,10 @@ export class WeatherService {
   }
   locations$ = this.locationsSelected$.asObservable();
 
-  constructor(private storage: StorageService) {}
+  constructor(
+    private storage: StorageService,
+    private weatherAPIService: WeatherAPIService
+  ) {}
 
   private saveLocations(): void {
     this.storage.save(this.locationsKey, JSON.stringify(this.locations));
@@ -31,5 +35,8 @@ export class WeatherService {
     }
     this.locationsSelected$.next([...locations, newLocation]);
     this.saveLocations();
+    this.weatherAPIService.getWeatherByZipcode(newLocation).subscribe(data => {
+      console.log(data);
+    });
   }
 }

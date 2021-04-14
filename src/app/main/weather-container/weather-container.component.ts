@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
 import { WeatherService } from "../weather.service";
 
 @Component({
@@ -7,9 +8,13 @@ import { WeatherService } from "../weather.service";
   styleUrls: ["./weather-container.component.css"]
 })
 export class WeatherContainerComponent implements OnInit {
+  locationsWeather: Observable<any[]>;
+
   constructor(private weatherService: WeatherService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.locationsWeather = this.weatherService.locations$;
+  }
 
   addLocation(zipcode: string) {
     this.weatherService.addLocation(zipcode);
