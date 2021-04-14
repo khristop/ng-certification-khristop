@@ -1,16 +1,14 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
+import { AppRoutesModule } from "./app-routing.module";
 
-import { AppComponent } from './app.component';
-import { HelloComponent } from './hello.component';
-import { LocationFormComponent } from './location-form/location-form.component';
-import { LocationClimateComponent } from './location-climate/location-climate.component';
-import { LocationForecastComponent } from './location-forecast/location-forecast.component';
+import { AppComponent } from "./app.component";
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule ],
-  declarations: [ AppComponent, HelloComponent, LocationFormComponent, LocationClimateComponent, LocationForecastComponent ],
-  bootstrap:    [ AppComponent ]
+  imports: [BrowserModule, CommonModule, AppRoutesModule],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
