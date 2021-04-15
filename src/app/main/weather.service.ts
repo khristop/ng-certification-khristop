@@ -50,13 +50,14 @@ export class WeatherService {
     if (this.zipcodes.includes(newLocationZipcode)) {
       return; // return some error or display zipcode already selected
     }
-    this.weatherAPIService.getWeatherByZipcode(newLocationZipcode).subscribe();
-  }
-
-  handleWeatherData(zipcode: WeatherResponse) {
-    return (weatherData: WeatherResponse) => {
-      this.locationWeathersSubject$.next([this.locationWeathers, weatherData]);
-      this.saveLocations([...this.zipcodes, zipcode]);
-    };
+    this.weatherAPIService
+      .getWeatherByZipcode(newLocationZipcode)
+      .subscribe((weatherData: WeatherResponse) => {
+        this.locationWeathersSubject$.next([
+          ...this.locationWeathers,
+          weatherData
+        ]);
+        this.saveLocations([...this.zipcodes, newLocationZipcode]);
+      });
   }
 }
