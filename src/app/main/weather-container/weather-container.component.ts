@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
+import { WeatherResponse } from "../../models/weather-api.model";
 import { WeatherService } from "../weather.service";
 
 @Component({
@@ -8,13 +9,12 @@ import { WeatherService } from "../weather.service";
   styleUrls: ["./weather-container.component.css"]
 })
 export class WeatherContainerComponent implements OnInit {
-  locationsWeather: Observable<any[]>;
+  locationsWeather: Observable<WeatherResponse[]> = this.weatherService
+    .locationWeathers$;
 
   constructor(private weatherService: WeatherService) {}
 
-  ngOnInit() {
-    this.locationsWeather = this.weatherService.locations$;
-  }
+  ngOnInit() {}
 
   addLocation(zipcode: string) {
     this.weatherService.addLocation(zipcode);

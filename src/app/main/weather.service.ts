@@ -1,26 +1,44 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, merge } from "rxjs";
+import { WeatherResponse } from "../models/weather-api.model";
 import { StorageService } from "../services/storage.service";
 import { WeatherAPIService } from "../services/weather-api.service";
 
 @Injectable()
 export class WeatherService {
   private locationsKey = "locations";
-  private locationsSelected$ = new BehaviorSubject<string[]>(
-    this.getLocations()
-  );
-  get locations() {
-    return this.locationsSelected$.getValue();
+  private zipcodes = this.getLocations();
+
+  private locationWeathersSubject$ = new BehaviorSubject<WeatherResponse[]>([]);
+  private get locationWeathers() {
+    return this.locationWeathersSubject$.getValue();
   }
-  locations$ = this.locationsSelected$.asObservable();
+  locationWeathers$ = this.locationWeathersSubject$.asObservable();
 
   constructor(
     private storage: StorageService,
     private weatherAPIService: WeatherAPIService
-  ) {}
+  ) {
+    this.fetchData();
+  }
 
-  private saveLocations(): void {
-    this.storage.save(this.locationsKey, JSON.stringify(this.locations));
+  protected fetchData() {
+    if (this.zipcodes) {
+      const observers = this.zipcodes.map(zipcode =>
+        this.weatherAPIService.getWeatherByZipcode(zipcode)
+      );
+
+      merge(...observers).subscribe(weatherData => {
+        this.locationWeathersSubject$.next([
+          ...this.locationWeathers,
+          weatherData
+        ]);
+      });
+    }
+  }
+
+  private saveLocations(locations: string[]): void {
+    this.storage.save(this.locationsKey, JSON.stringify(locations));
   }
 
   getLocations(): string[] {
@@ -28,15 +46,17 @@ export class WeatherService {
     return locationsSaved ? JSON.parse(locationsSaved) : [];
   }
 
-  addLocation(newLocation: string): void {
-    let locations = this.locations;
-    if (locations.includes(newLocation)) {
-      return; // return some error
+  addLocation(newLocationZipcode: string): void {
+    if (this.zipcodes.includes(newLocationZipcode)) {
+      return; // return some error or display zipcode already selected
     }
-    this.locationsSelected$.next([...locations, newLocation]);
-    this.saveLocations();
-    this.weatherAPIService.getWeatherByZipcode(newLocation).subscribe(data => {
-      console.log(data);
-    });
+    this.weatherAPIService.getWeatherByZipcode(newLocationZipcode).subscribe();
+  }
+
+  handleWeatherData(zipcode: WeatherResponse) {
+    return (weatherData: WeatherResponse) => {
+      this.locationWeathersSubject$.next([this.locationWeathers, weatherData]);
+      this.saveLocations([...this.zipcodes, zipcode]);
+    };
   }
 }
