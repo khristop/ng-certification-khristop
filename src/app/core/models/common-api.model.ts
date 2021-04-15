@@ -9,3 +9,8 @@ export interface Weather {
   description: string;
   icon: string;
 }
+
+export interface ErrorMessage {
+  cod: string;
+  message: string;
+}

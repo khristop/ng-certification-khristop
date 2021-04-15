@@ -3,10 +3,13 @@ import { CommonModule } from "@angular/common";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { WeatherAPIInterceptor } from "./interceptors/weather-api.interceptor";
 import { MEASUREMNT_UNIT } from "./tokens/measurement-unit.token";
+import { NotificationComponent } from "./components/notification/notification.component";
+import { NotFoundComponent } from "./components/not-found/not-found.component";
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],
-  declarations: [],
+  exports: [NotificationComponent, NotFoundComponent],
+  declarations: [NotificationComponent, NotFoundComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
