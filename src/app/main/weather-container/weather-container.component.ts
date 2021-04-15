@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { Observable } from "rxjs";
-import { WeatherResponse } from "../../core/models/weather-api.model";
 import { MeasurementUnit, Weather } from "../../core/models/weather.model";
 import { MEASUREMENT_UNIT } from "../../core/tokens/measurement-unit.token";
 import { WeatherService } from "../weather.service";
@@ -10,7 +9,7 @@ import { WeatherService } from "../weather.service";
   templateUrl: "./weather-container.component.html",
   styleUrls: ["./weather-container.component.css"]
 })
-export class WeatherContainerComponent implements OnInit {
+export class WeatherContainerComponent {
   locationsWeather: Observable<Weather[]> = this.weatherService
     .locationWeathers$;
 
@@ -18,8 +17,6 @@ export class WeatherContainerComponent implements OnInit {
     private weatherService: WeatherService,
     @Inject(MEASUREMENT_UNIT) public measurmentUnit: MeasurementUnit
   ) {}
-
-  ngOnInit() {}
 
   addLocation(zipcode: string) {
     this.weatherService.addLocation(zipcode);

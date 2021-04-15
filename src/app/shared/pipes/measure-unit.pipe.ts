@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { MeasurementUnit } from "../../models/weather.model";
+import { MeasurementUnit } from "../../core/models/weather.model";
 
 @Pipe({ name: "measureUnit" })
 export class MeasureUnitPipe implements PipeTransform {
