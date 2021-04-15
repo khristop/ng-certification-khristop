@@ -12,6 +12,5 @@ export class MeasureUnitPipe implements PipeTransform {
       default:
         return `${value} °K`;
     }
-    return;
   }
 }

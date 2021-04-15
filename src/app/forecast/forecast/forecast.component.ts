@@ -1,4 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ForecastResponse } from "../../core/models/forecast-api.model";
+import { MeasurementUnit } from "../../core/models/weather.model";
+import { MEASUREMNT_UNIT } from "../../core/tokens/measurement-unit.token";
 
 @Component({
   selector: "app-forecast",
@@ -6,7 +10,17 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./forecast.component.css"]
 })
 export class ForecastComponent implements OnInit {
-  constructor() {}
+  forecastData: ForecastResponse;
 
-  ngOnInit() {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public router: Router,
+    @Inject(MEASUREMNT_UNIT) public measurmentUnit: MeasurementUnit
+  ) {}
+
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(data => {
+      this.forecastData = data.forecastData;
+    });
+  }
 }
