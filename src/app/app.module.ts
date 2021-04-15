@@ -1,27 +1,22 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { NgModule } from "@angular/core";
+import { NgModule, Optional, SkipSelf } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutesModule } from "./app-routing.module";
 
 import { AppComponent } from "./app.component";
-import { WeatherAPIInterceptor } from "./interceptors/weather-api.interceptor";
-import { MEASUREMNT_UNIT } from "./tokens/measurement-unit.token";
+import { CoreModule } from "./core/core.module";
 
 @NgModule({
-  imports: [BrowserModule, CommonModule, AppRoutesModule, HttpClientModule],
+  imports: [BrowserModule, CommonModule, AppRoutesModule, CoreModule],
   declarations: [AppComponent],
-  bootstrap: [AppComponent],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: WeatherAPIInterceptor,
-      multi: true
-    },
-    {
-      provide: MEASUREMNT_UNIT,
-      useValue: "metric"
-    }
-  ]
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(@Optional() @SkipSelf() parentModule?: CoreModule) {
+    if (parentModule) {
+      throw new Error(
+        "CoreModule is already loaded. Import it in the AppModule only"
+      );
+    }
+  }
+}

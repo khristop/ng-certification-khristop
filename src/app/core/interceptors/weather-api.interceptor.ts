@@ -6,9 +6,9 @@ import {
   HttpRequest
 } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { environment } from "../../environments/environment";
 import { MEASUREMNT_UNIT } from "../tokens/measurement-unit.token";
 import { MeasurementUnit } from "../models/weather.model";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class WeatherAPIInterceptor implements HttpInterceptor {

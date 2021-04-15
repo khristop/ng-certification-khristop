@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, merge, combineLatest, of } from "rxjs";
-import { WeatherResponse } from "../models/weather-api.model";
-import { StorageService } from "../services/storage.service";
-import { WeatherAPIService } from "../services/weather-api.service";
+import { WeatherResponse } from "../core/models/weather-api.model";
+import { StorageService } from "../core/services/storage.service";
+import { WeatherAPIService } from "../core/services/weather-api.service";
 
 @Injectable()
 export class WeatherService {
@@ -28,11 +28,11 @@ export class WeatherService {
         combineLatest([
           of(zipcode),
           this.weatherAPIService.getWeatherByZipcode(zipcode)
-        ]) 
+        ])
       );
 
       merge(...observers).subscribe(([zipcode, weatherData]) => {
-        weatherData['zipcode']= zipcode;
+        weatherData["zipcode"] = zipcode;
         this.locationWeathersSubject$.next([
           ...this.locationWeathers,
           weatherData
