@@ -42,6 +42,7 @@ export class WeatherService {
   }
 
   private saveLocations(locations: string[]): void {
+    this.zipcodes = locations;
     this.storage.save(this.locationsKey, JSON.stringify(locations));
   }
 
@@ -64,5 +65,13 @@ export class WeatherService {
         ]);
         this.saveLocations([...this.zipcodes, newLocationZipcode]);
       });
+  }
+
+  removeLocationByZipcode(zipcode: string) {
+    const locationsUpdated = this.locationWeathers.filter(
+      location => location.zipcode !== zipcode
+    );
+    this.locationWeathersSubject$.next(locationsUpdated);
+    this.saveLocations(locationsUpdated.map(location => location.zipcode));
   }
 }

@@ -13,7 +13,7 @@
     </p>
   </div>
   <div>
-    <span class="close">×</span>
+    <span class="close" (click)="removeLocation.emit(weatherInfo)">×</span>
 
     <ng-container [ngSwitch]="weatherInfo.weather[0].main ">
       <img *ngSwitchCase="'Clouds'" src="https://www.angulartraining.com/images/weather/clouds.png">

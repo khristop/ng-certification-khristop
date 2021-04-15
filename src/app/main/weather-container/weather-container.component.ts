@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
+import { Weather } from "../../core/models/weather-api.model";
 import { WeatherResponse } from "../../core/models/weather-api.model";
 import { MeasurementUnit } from "../../core/models/weather.model";
 import { MEASUREMNT_UNIT } from "../../core/tokens/measurement-unit.token";
@@ -23,5 +24,9 @@ export class WeatherContainerComponent implements OnInit {
 
   addLocation(zipcode: string) {
     this.weatherService.addLocation(zipcode);
+  }
+
+  removeLocation({ zipcode }: Weather) {
+    this.weatherService.removeLocationByZipcode(zipcode);
   }
 }

@@ -1,5 +1,5 @@
 <app-location-form (zipcodeSelected)="addLocation($event)"></app-location-form>
 
 <app-weather-card [weatherInfo]="locationWeather" [measureUnit]="measurmentUnit"
-  *ngFor="let locationWeather of locationsWeather | async">
+  (removeLocation)="removeLocation($event)" *ngFor="let locationWeather of locationsWeather | async">
 </app-weather-card>
