@@ -7,7 +7,7 @@ const appRoutes: Routes = [
     loadChildren: () => import("./main/main.module").then(m => m.MainModule)
   },
   {
-    path: ":id",
+    path: "forecast",
     loadChildren: () =>
       import("./forecast/forecast.module").then(m => m.ForecastModule)
   }
