@@ -5,6 +5,11 @@ const appRoutes: Routes = [
   {
     path: "",
     loadChildren: () => import("./main/main.module").then(m => m.MainModule)
+  },
+  {
+    path: ":id",
+    loadChildren: () =>
+      import("./forecast/forecast.module").then(m => m.ForecastModule)
   }
 ];
 

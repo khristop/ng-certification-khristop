@@ -1,9 +1,10 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { LocationForecastComponent } from "./location-forecast/location-forecast.component";
+import { LocationForecastRoutesModule } from "./forecast-routing.module";
+import { ForecastComponent } from "./forecast/forecast.component";
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [LocationForecastComponent]
+  imports: [CommonModule, LocationForecastRoutesModule],
+  declarations: [ForecastComponent]
 })
 export class ForecastModule {}
