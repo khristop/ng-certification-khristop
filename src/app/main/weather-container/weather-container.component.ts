@@ -1,6 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { WeatherResponse } from "../../models/weather-api.model";
+import { MeasurementUnit } from "../../models/weather.model";
+import { MEASUREMNT_UNIT } from "../../tokens/measurement-unit.token";
 import { WeatherService } from "../weather.service";
 
 @Component({
@@ -12,7 +14,10 @@ export class WeatherContainerComponent implements OnInit {
   locationsWeather: Observable<WeatherResponse[]> = this.weatherService
     .locationWeathers$;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    @Inject(MEASUREMNT_UNIT) public measurmentUnit: MeasurementUnit
+  ) {}
 
   ngOnInit() {}
 

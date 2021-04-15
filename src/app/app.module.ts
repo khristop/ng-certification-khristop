@@ -6,6 +6,7 @@ import { AppRoutesModule } from "./app-routing.module";
 
 import { AppComponent } from "./app.component";
 import { WeatherAPIInterceptor } from "./interceptors/weather-api.interceptor";
+import { MEASUREMNT_UNIT } from "./tokens/measurement-unit.token";
 
 @NgModule({
   imports: [BrowserModule, CommonModule, AppRoutesModule, HttpClientModule],
@@ -16,6 +17,10 @@ import { WeatherAPIInterceptor } from "./interceptors/weather-api.interceptor";
       provide: HTTP_INTERCEPTORS,
       useClass: WeatherAPIInterceptor,
       multi: true
+    },
+    {
+      provide: MEASUREMNT_UNIT,
+      useValue: "metric"
     }
   ]
 })
