@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, merge, combineLatest, of } from "rxjs";
 import { WeatherResponse } from "../core/models/weather-api.model";
+import { Weather } from "../core/models/weather.model";
 import { StorageService } from "../core/services/storage.service";
 import { WeatherAPIService } from "../core/services/weather-api.service";
 
@@ -9,7 +10,7 @@ export class WeatherService {
   private locationsKey = "locations";
   private zipcodes = this.getLocations();
 
-  private locationWeathersSubject$ = new BehaviorSubject<WeatherResponse[]>([]);
+  private locationWeathersSubject$ = new BehaviorSubject<Weather[]>([]);
   private get locationWeathers() {
     return this.locationWeathersSubject$.getValue();
   }
@@ -35,7 +36,7 @@ export class WeatherService {
         weatherData["zipcode"] = zipcode;
         this.locationWeathersSubject$.next([
           ...this.locationWeathers,
-          weatherData
+          weatherData as Weather
         ]);
       });
     }
@@ -61,13 +62,13 @@ export class WeatherService {
         weatherData["zipcode"] = newLocationZipcode;
         this.locationWeathersSubject$.next([
           ...this.locationWeathers,
-          weatherData
+          weatherData as Weather
         ]);
         this.saveLocations([...this.zipcodes, newLocationZipcode]);
       });
   }
 
-  removeLocationByZipcode(zipcode: string) {
+  removeLocationByZipcode(zipcode: number) {
     const locationsUpdated = this.locationWeathers.filter(
       location => location.zipcode !== zipcode
     );

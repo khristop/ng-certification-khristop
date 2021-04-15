@@ -3,7 +3,7 @@ export interface Coordinate {
   lat: number;
 }
 
-export interface Weather {
+export interface WeatherData {
   id: number;
   main: string;
   description: string;

@@ -1,4 +1,4 @@
-import { Coordinate, Weather } from "./common-api.model";
+import { Coordinate, WeatherData } from "./common-api.model";
 
 export interface Stats {
   temp: number;
@@ -29,7 +29,7 @@ export interface SysData {
 
 export interface WeatherResponse {
   coord: Coordinate;
-  weather: Weather[];
+  weather: WeatherData[];
   base: string;
   main: Stats;
   visibility: number;

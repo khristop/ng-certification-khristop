@@ -6,7 +6,7 @@ import {
   HttpRequest
 } from "@angular/common/http";
 import { Observable, of, throwError } from "rxjs";
-import { MEASUREMNT_UNIT } from "../tokens/measurement-unit.token";
+import { MEASUREMENT_UNIT } from "../tokens/measurement-unit.token";
 import { MeasurementUnit } from "../models/weather.model";
 import { environment } from "../../../environments/environment";
 import { catchError } from "rxjs/operators";
@@ -19,7 +19,7 @@ export class WeatherAPIInterceptor implements HttpInterceptor {
   private weatherAPIKey = environment.weatherAPIKey;
 
   constructor(
-    @Inject(MEASUREMNT_UNIT) private measurmentUnit: MeasurementUnit,
+    @Inject(MEASUREMENT_UNIT) private measurmentUnit: MeasurementUnit,
     private errorMessageService: ErrorMessageService
   ) {}
 

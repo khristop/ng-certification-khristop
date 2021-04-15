@@ -1,5 +1,5 @@
 import { Coordinate } from "./common-api.model";
-import { Weather } from "./weather.model";
+import { WeatherData } from "./weather.model";
 
 export interface City {
   id: number;
@@ -23,7 +23,7 @@ export interface ForecastDay {
   temp: TemperatureData;
   pressure: number;
   humidity: number;
-  weather: Weather;
+  weather: WeatherData[];
   speed: number;
   deg: number;
   clouds: number;
